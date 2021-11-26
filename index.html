@@ -30,7 +30,15 @@
             <button id="next-btn" class="next-btn btn hide">Next</button>
             <button id="viewScores" class="score-btn btn hide">View Scores</button>
         </div>
-        <div id="scoreboard"></div>
+        <div id="scoreboard" class="hide">
+            <input type="text" name="scoreInp" id="scoreInp" placeholder="Enter your name here">
+            <button type="button" id="enterScore">Submit Score</button>
+            <div id="leader">
+                <ol>
+                    <li id="listItem"></li>
+                </ol>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

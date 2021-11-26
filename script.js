@@ -4,7 +4,10 @@ const questionContainerElement = document.querySelector('#question-container')
 let currentQuestionState = 0
 var scores = document.querySelector('#scores')
 var scores = 0
-let highScore = JSON.parse(localStorage.getItem('scores')) || []
+let highScore = JSON.parse(localStorage.getItem('highscoreArr')) || []
+const scoreboardElem = document.getElementById('scoreboard')
+const scoreButton = document.getElementById('enterScore')
+
 
 const startingMinutes = 5
 let time = startingMinutes * 60
@@ -96,11 +99,30 @@ function startGame() {
 
 function nextQuestion() {
     currentQuestionState++
-    document.querySelector('#question').innerHTML = questions[currentQuestionState].question
-    document.querySelector('#answer1').innerHTML = questions[currentQuestionState].answers[0].text
-    document.querySelector('#answer2').innerHTML = questions[currentQuestionState].answers[1].text
-    document.querySelector('#answer3').innerHTML = questions[currentQuestionState].answers[2].text
-    document.querySelector('#answer4').innerHTML = questions[currentQuestionState].answers[3].text
+    if (currentQuestionState < 6) {
+        document.querySelector('#question').innerHTML = questions[currentQuestionState].question
+        document.querySelector('#answer1').innerHTML = questions[currentQuestionState].answers[0].text
+        document.querySelector('#answer2').innerHTML = questions[currentQuestionState].answers[1].text
+        document.querySelector('#answer3').innerHTML = questions[currentQuestionState].answers[2].text
+        document.querySelector('#answer4').innerHTML = questions[currentQuestionState].answers[3].text
+    } else{
+        questionContainerElement.classList.add('hide')
+        scoreboardElem.classList.remove('hide')
+    }
+}
+
+scoreButton.addEventListener('click', showScorepage)
+
+function showScorepage() {
+    let scoreName = document.getElementById('scoreInp').value
+    let scoreObj = 
+        {name: scoreName,
+        score: scores}
+    highScore.push(scoreObj)
+    localStorage.setItem('highscoreArr', JSON.stringify(highScore))
+    document.getElementById('listItem').innerHTML = `
+            ${localStorage.getItem('name')}
+    `
 }
 
 function checkAnswer(answer) {
